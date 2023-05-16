@@ -70,4 +70,7 @@ export class UserService {
       throw new HttpException('Invalid Password', HttpStatus.BAD_REQUEST);
     }
   }
+  findById(id: number): Promise<UserEntity> {
+    return this.userRepository.findOne({ where: { id } });
+  }
 }
