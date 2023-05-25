@@ -50,6 +50,7 @@ export class UserService {
         username: user.username,
         bio: user.bio,
         image: user.image,
+        articles: user.articles,
       },
     };
   }
