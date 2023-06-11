@@ -100,7 +100,6 @@ export class ArticleService {
     const follows = await this.followRepository.find({
       where: { followerId: currentUserId },
     });
-    console.log('follows', follows);
 
     if (follows.length === 0) {
       return { articles: [], articlesCount: 0 };
