@@ -26,14 +26,20 @@ export class TagService {
   }
 
   private findUniqueTagNames(arr1: string[], arr2: string[]) {
-    const uniqueStrings = [];
+    const uniqueStrings = {};
+    const result = [];
+
+    arr2.forEach((str) => {
+      uniqueStrings[str] = true;
+    });
 
     arr1.forEach((str) => {
-      if (!arr2.includes(str) && !uniqueStrings.includes(str)) {
-        uniqueStrings.push(str);
+      if (!uniqueStrings[str]) {
+        result.push(str);
+        uniqueStrings[str] = true;
       }
     });
 
-    return uniqueStrings;
+    return result;
   }
 }
