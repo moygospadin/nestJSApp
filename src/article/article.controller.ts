@@ -9,7 +9,6 @@ import {
   Query,
   UseGuards,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { AuthGuard } from '@app/user/guards/auth.guard';
@@ -62,6 +61,10 @@ export class ArticleController {
     const article = await this.articleService.findArticleBySlug(slug);
 
     return this.articleService.buildArticleResponse(article);
+  }
+  @Get(':slug/comments')
+  async getComments(@Param('slug') slug: string): Promise<[]> {
+    return [];
   }
 
   @Delete(':slug')

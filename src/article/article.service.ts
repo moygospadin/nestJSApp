@@ -8,6 +8,7 @@ import { ArticleResponseInterface } from './types/articleResponse.interface';
 import slugify from 'slugify';
 import { ArticlesResponseInterface } from './types/articlesResponse.interface';
 import { FollowEntity } from '@app/profile/entity/follow.entity';
+import { TagService } from '@app/tag/tag.service';
 
 @Injectable()
 export class ArticleService {
@@ -18,6 +19,7 @@ export class ArticleService {
     private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(FollowEntity)
     private readonly followRepository: Repository<FollowEntity>,
+    private readonly tagService: TagService,
     private dataSource: DataSource,
   ) {}
 
@@ -133,8 +135,11 @@ export class ArticleService {
   ): Promise<ArticleEntity> {
     const article = new ArticleEntity();
     Object.assign(article, createArticleDto);
+
     if (!article.tagList) {
       article.tagList = [];
+    } else {
+      this.tagService.addTag(article.tagList);
     }
     article.author = currentUser;
     article.slug = this.getSlug(createArticleDto.title);
